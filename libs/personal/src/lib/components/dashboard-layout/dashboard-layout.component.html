@@ -1,0 +1,8 @@
+<pe-header></pe-header>
+<base-dashboard
+                [loaded]="true"
+                (dockerItemsChange)="onDockerItemsChange($event)"
+                (profileButtonClicked)="navigateToSwitcher()"
+                [user]="user$ | async">
+  <router-outlet></router-outlet>
+</base-dashboard>

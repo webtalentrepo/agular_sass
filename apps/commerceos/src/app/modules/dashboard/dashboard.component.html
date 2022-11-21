@@ -1,0 +1,7 @@
+
+    <pe-header class="dashboard-header"></pe-header>
+
+    <base-dashboard class="example-container" *ngIf="!(loading$ | async)" [theme]="theme" [loaded]="true" [user]="user$ | async">
+      <router-outlet></router-outlet>
+    </base-dashboard>
+

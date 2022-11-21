@@ -1,0 +1,96 @@
+<form class="form-container" [ngClass]="theme" [formGroup]="contactForm">
+    <div class="image">
+        <peb-logo-and-status-picker
+                [addButtonLabel]="'form.create_form.personal_information.logo.add_media' | translate"
+                [image]="previewImageUrl"
+                [isImageLoading]="false"
+                (file)="uploadImage($event)"
+        ></peb-logo-and-status-picker>
+    </div>
+    <peb-form-background>
+        <div class="column-wrapper">
+            <peb-select selectType="label"
+                        label="{{ 'form.create_form.personal_information.salutation.label' | translate }}"
+                        formControlName="salutation">
+                <peb-select-option class="select-options"
+                                   *ngFor="let item of salutation"
+                                   value="{{ item.value }}"
+                                   label="{{ item.label }}"
+                ></peb-select-option>
+            </peb-select>
+            <peb-form-field-input label="{{ 'form.create_form.personal_information.first_name.label' | translate }}"
+                                  class="divider-border"
+                                  appearance="label">
+                <input type="text"
+                       pebInput
+                       placeholder="{{'form.create_form.personal_information.first_name.placeholder' | translate}}"
+                       formControlName="firstName"
+                />
+            </peb-form-field-input>
+            <peb-form-field-input label="{{ 'form.create_form.personal_information.last_name.label' | translate }}" appearance="label">
+                <input type="text"
+                       pebInput
+                       placeholder="{{'form.create_form.personal_information.last_name.placeholder' | translate}}"
+                       formControlName="lastName"
+                />
+            </peb-form-field-input>
+        </div>
+        <div class="columns">
+            <peb-form-field-input class="two-column-input" label="{{ 'form.create_form.personal_information.phone.label' | translate }}" appearance="label">
+                <input type="text"
+                       pebInput
+                       placeholder="{{ 'form.create_form.personal_information.phone.placeholder' | translate }}"
+                       formControlName="phone"
+                />
+            </peb-form-field-input>
+            <div class="divider"></div>
+            <peb-form-field-input class="two-column-input" label="{{ 'form.create_form.personal_information.email.label' | translate }}" appearance="label">
+                <input type="text"
+                       pebInput
+                       placeholder="{{ 'form.create_form.personal_information.email.placeholder' | translate }}"
+                       formControlName="email"
+                />
+            </peb-form-field-input>
+        </div>
+        <peb-form-background>
+            <peb-form-field-input label="{{ 'form.create_form.personal_information.birthday.label' | translate }}" appearance="label">
+                <input
+                        type="datetime"
+                        pebInput
+                        disabled
+                        placeholder="DD.MM.YYYY"
+                        formControlName="birthday"
+                        (click)="openDatepicker($event, 'birthday')"
+                        #dateToInput
+                />
+                <div class="suffix-icon">
+                    <svg class="calendar-image" (click)="openDatepicker({ target: dateToInput }, 'birthday')">
+                        <use xlink:href="#icon-settings-datepicker"></use>
+                    </svg>
+                </div>
+            </peb-form-field-input>
+        </peb-form-background>
+    </peb-form-background>
+    <div class="form-margins__error">
+        <peb-messages
+                *ngIf="contactForm.get('firstName').invalid"
+                message="{{ 'form.create_form.contact.first_name.label' | translate }}
+                         {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+        <peb-messages
+                *ngIf="contactForm.get('lastName').invalid"
+                message="{{ 'form.create_form.contact.last_name.label' | translate }}
+                         {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+        <peb-messages
+                *ngIf="contactForm.get('phone').hasError('pattern')"
+                message="{{ 'form.create_form.contact.phone.label' | translate }}
+                         {{ 'form.create_form.errors.phone_pattern' | translate }}"
+        ></peb-messages>
+        <peb-messages
+                *ngIf="contactForm.get('email').hasError('pattern')"
+                message="{{ 'form.create_form.contact.email.label' | translate }}
+                         {{ 'form.create_form.errors.email_pattern' | translate }}"
+        ></peb-messages>
+    </div>
+</form>

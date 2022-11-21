@@ -1,0 +1,103 @@
+.edit-overlay-container {
+    max-height: 300px;
+    overflow: auto;
+    overflow: overlay;
+    border-radius: 13px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, .3) rgba(0, 0, 0, 0);
+
+    .item {
+        padding: 6px 0 6px 18px;
+        background-color: rgba(0, 0, 0, 0.3);
+        margin: 1px;
+        display: flex;
+        align-items: center;
+        &:first-child{
+            border-top-left-radius: 13px;
+            border-top-right-radius: 13px;
+        }
+        &:last-child{
+            border-bottom-left-radius: 13px;
+            border-bottom-right-radius: 13px;
+        }
+        &-icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: #37363b;
+            padding: 5px;
+            svg{
+                width:18px;
+                height: 18px;
+            }
+        }
+        &-title{
+            flex-grow: 1;
+            font-weight: 400;
+            color:white;
+            display: inline-block;
+            margin-left: 16px;
+        }
+        &-toggle{
+            .button-toggle-container{
+                margin: 0;
+                padding: 8px 10px;
+            }
+        }
+    }
+
+    &.light{
+        .item {
+            background-color: #fff;
+            &-title{
+                color: black;
+            }
+            &-icon {
+                background-color: #e3e3e3;
+            }
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #c1c1c1;
+        }
+    }
+}
+
+.editor-toggle{
+    width: 249px;
+    padding: 2px;
+    border-radius: 9px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color:white;
+    margin: 0 auto 18px;
+    display: flex;
+    .toggle-button{
+        cursor: pointer;
+        text-align: center;
+        flex-grow: 0.5;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 3px;
+        &.active{
+            border-radius: 7.5px;
+            background-color: #37363b;
+        }
+    }
+
+    &.light{
+        background-color: rgba(255, 255, 255, 0.3);
+        color: black;
+        .toggle-button.active{
+            background-color: white;
+        }
+    }
+}
+.toggle-install {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 12px;
+    height: 44px;
+    margin-right: 7px !important;
+}

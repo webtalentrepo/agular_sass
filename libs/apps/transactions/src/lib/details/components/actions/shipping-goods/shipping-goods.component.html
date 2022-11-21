@@ -1,0 +1,110 @@
+<pe-action-container
+  titleTranslateKey="transactions.form.shipping_goods.heading"
+  [theme]="theme"
+  [submitTitleTranslateKey]="!hasLabelAction && !hasSlipAction ? 'actions.send' : 'transactions.actions.done'"
+  [isLoading]="isLoading$ | async"
+  (closeEvent)="close()"
+  (submitEvent)="send()"
+>
+  <form novalidate [formGroup]="form" *ngIf="form !== null">
+    <peb-form-background>
+      <div class="note" *ngIf="!hasLabelAction && !hasSlipAction">
+        {{ 'transactions.form.shipping_goods.note' | translate }}
+      </div>
+      <div class="note" *ngIf="hasLabelAction || hasSlipAction">
+        {{ 'transactions.form.shipping_goods.shipped' | translate }}
+      </div>
+    </peb-form-background>
+    <peb-form-background>
+      <peb-button-toggle
+        label="{{ 'transactions.form.shipping_goods.labels.full' | translate }}"
+        [spacer]="true"
+        [disabled]="!actionData?.partialAllowed"
+        [checked]="!actionData?.partialAllowed"
+        labelPosition="before"
+        (changed)="onToggleAmount($event)"
+      ></peb-button-toggle>
+      <peb-select
+        selectType="label"
+        [class.disabled]="captureTypeField?.disabled"
+        [label]="'transactions.form.shipping_goods.labels.capture_option' | translate"
+        formControlName="captureType"
+      >
+        <peb-select-option
+          [value]="types[0].toString()"
+          [label]="'transactions.form.shipping_goods.labels.select_amount' | translate"
+        >
+        </peb-select-option>
+        <peb-select-option
+          *ngIf="order.cart.items.length > 0"
+          [value]="types[1].toString()"
+          [label]="'transactions.form.shipping_goods.labels.select_items' | translate"
+        >
+        </peb-select-option>
+      </peb-select>
+      <peb-form-field-input
+        *ngIf="captureTypeField.value == types[0]"
+        [isFieldInvalid]="form.get('amount')?.invalid"
+        [errorMessage]="
+          'transactions.form.refund.fields.amount.errors.limits'
+            | translate
+              : {
+                  min: 0 | currency: order.transaction.currency:undefined:undefined:locale,
+                  max: refundTotal | currency: order.transaction.currency:undefined:undefined:locale
+                }
+        "
+        [class.disabled]="amountField?.disabled"
+        label="{{ 'transactions.form.shipping_goods.labels.amount_placeholder' | translate }}"
+        appearance="label"
+      >
+        <input
+          type="text"
+          pebInput
+          placeholder="{{
+            'transactions.form.shipping_goods.labels.amount'
+              | translate
+                : {
+                    amount: refundTotal | currency: order.transaction.currency:undefined:undefined:locale
+                  }
+          }}"
+          formControlName="amount"
+          (keypress)="amountChanged($event)"
+        />
+      </peb-form-field-input>
+      <pe-refund-product-picker *ngIf="captureTypeField.value == types[1]" [data]="products" placeholder="Search">
+      </pe-refund-product-picker>
+    </peb-form-background>
+
+    <ng-container *ngIf="needVerify">
+      <pe-verify-action-fields [order]="order"></pe-verify-action-fields>
+
+      <peb-form-background class="second-section" *ngIf="securityFormControl">
+        <peb-form-field-input
+          [isFieldInvalid]="isSubmitted && securityFormControl.errors"
+          [errorMessage]="'transactions.form.verify.errors.required' | translate"
+          [label]="'transactions.form.shipping_goods.labels.otp_label' | translate"
+          appearance="label"
+        >
+          <input type="text" [mask]="securityField.mask" [formControl]="securityFormControl" />
+        </peb-form-field-input>
+      </peb-form-background>
+
+      <peb-form-background class="second-section">
+        <peb-checkbox
+          [isFieldInvalid]="isSubmitted && form.get('_confirm').errors"
+          class="verify-checkbox"
+          type="label"
+          formControlName="_confirm"
+        >
+          {{ 'transactions.form.shipping_goods.labels.confirm' | translate }}
+        </peb-checkbox>
+      </peb-form-background>
+    </ng-container>
+  </form>
+  <button class="shipping-action" *ngIf="hasLabelAction" (click)="onOpenLabelAction()">
+    {{ 'transactions.form.shipping_goods.actions.download_label' | translate }}
+  </button>
+  <button class="shipping-action" *ngIf="hasSlipAction" (click)="onOpenSlipAction()">
+    {{ 'transactions.form.shipping_goods.actions.download_shipping_slip' | translate }}
+  </button>
+</pe-action-container>

@@ -1,0 +1,21 @@
+<div class="container" [ngClass]="config.theme">
+  <div style="margin-bottom: 16px;">
+    <div style="margin-bottom: 16px;">
+      <peb-logo-picker [isImageLoading]="isImageLoading" (file)="onLogoUpload($event)" [image]="siteConfig.siteImage" [abbrevation] = "siteConfig.siteName|abbreviation"></peb-logo-picker>
+    </div>
+    <peb-form-background>
+      <peb-form-field-input  [label]="'site-app.settings.site_name_label'|translate" appearance="label">
+          <input [ngModel]="siteConfig.siteName" (ngModelChange)="validateSite($event)"
+                 [placeholder]="'site-app.settings.site_name_placeholder'|translate"/>
+      </peb-form-field-input>
+    </peb-form-background>
+  </div>
+<div style="margin-bottom: 16px;"  *ngIf="errorMsg">
+  <peb-messages  [showIcon]="false" [message]="errorMsg"></peb-messages>
+</div>
+<button *ngIf="appData.id&&appData.name && !appData.isDefault"
+class="delete-button"
+(click)="removeSite()"
+[ngClass]="config.theme">{{'site-app.actions.delete_site'|translate}}</button>
+
+</div>

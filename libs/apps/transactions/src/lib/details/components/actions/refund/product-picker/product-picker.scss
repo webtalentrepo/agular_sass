@@ -1,0 +1,261 @@
+.product-picker-container {
+  overflow: hidden;
+  &__controls {
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    .input-with-label {
+      display: inherit;
+      flex-direction: column;
+      flex: 1;
+      padding: 4px 12px;
+
+      span {
+        font-family: "Roboto", sans-serif;
+        font-size: 11px;
+        height: 16px;
+      }
+
+      input {
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.33;
+        height: 16px;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        padding: 0;
+      }
+    }
+
+    .button-container {
+      display: inherit;
+      width: 105px;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+
+      .peb-text-button {
+        font-size: 12px;
+        line-height: 130%;
+      }
+    }
+  }
+
+  .products-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    &__item {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      background-color: rgba(36, 39, 46, 0.85);
+      padding-top: 12px;
+
+      div {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .product-image {
+          width: 40px;
+          min-width: 40px;
+          height: 40px;
+          border-radius: 9px;
+          margin-right: 12px;
+          overflow: hidden;
+          background-color: #fff;
+
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        .product-data {
+          border-radius: 12px 0 0 12px;
+          background-color: #111111;
+          width: 50%;
+          height: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: baseline;
+          padding: 0 12px;
+          box-sizing: border-box;
+          overflow: hidden;
+
+          .product-price {
+            font-family: Roboto;
+            font-size: 11px;
+            color: #7a7a7a;
+          }
+
+          .product-name {
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.33;
+            letter-spacing: normal;
+            color: #ffffff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+          }
+        }
+
+        .quantity {
+          width: 50%;
+          height: 40px;
+          border-radius: 0 12px 12px 0;
+          background-color: #111111;
+          display: flex;
+          flex-direction: column;
+          align-items: baseline;
+          padding: 0 12px;
+          box-sizing: border-box;
+          border-left: 1px solid rgba(36, 39, 46, 0.85);
+
+          .label {
+            font-family: Roboto;
+            font-size: 11px;
+            color: #7a7a7a;
+          }
+
+          input[type="number"] {
+            background-color: transparent;
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.33;
+            color: #ffffff;
+            border: 0;
+            outline: none;
+            appearance: none;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+        }
+      }
+
+      .delete-btn {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin-left: 8px;
+        border-radius: 12px;
+        background-color: #111111;
+        border: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 16px;
+          height: 18px;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}
+
+.product-autocomplete-panel {
+  border-radius: 12px !important;
+  margin-top: 4px;
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.27);
+  margin-left: -12px;
+
+  .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+    background-color: inherit;
+
+    .mat-option-text {
+      background-color: inherit;
+    }
+  }
+
+  .mat-option {
+    height: 40px !important;
+    padding: 0 12px;
+    margin: 0;
+    border-radius: unset;
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(50px);
+
+    &:hover {
+      background-color: #0091df;
+    }
+
+    &:not(:first-of-type) {
+      &::before {
+        content: "";
+        height: 1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+    .mat-option-text {
+      height: inherit;
+      display: flex;
+      align-items: center;
+      .option-container {
+        display: flex;
+        align-items: center;
+
+        &__image {
+          height: 32px;
+          width: 32px;
+          border-radius: 6.7px;
+          margin-right: 12px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            height: 32px;
+            width: 32px;
+          }
+        }
+
+        &__label {
+          font-family: "Roboto", sans-serif;
+          font-size: 12px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.33;
+          letter-spacing: normal;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    cursor: pointer;
+  }
+}

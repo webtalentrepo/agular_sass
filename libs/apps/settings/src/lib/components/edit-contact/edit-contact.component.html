@@ -1,0 +1,121 @@
+<form class="form-container" [ngClass]="theme" [formGroup]="contactForm">
+  <peb-form-background>
+    <div class="column-wrapper">
+      <peb-select
+        selectType="label"
+        label="{{ 'form.create_form.contact.salutation.label' | translate }}"
+        formControlName="salutation"
+      >
+        <peb-select-option
+          class="select-options"
+          *ngFor="let item of salutation"
+          value="{{ item.value }}"
+          label="{{ item.label }}"
+        ></peb-select-option>
+      </peb-select>
+      <peb-form-field-input
+        label="{{ 'form.create_form.contact.first_name.label' | translate }}"
+        class="divider-border"
+        appearance="label"
+      >
+        <input
+          type="text"
+          pebInput
+          placeholder="{{ 'form.create_form.contact.first_name.placeholder' | translate }}"
+          formControlName="firstName"
+        />
+      </peb-form-field-input>
+      <peb-form-field-input label="{{ 'form.create_form.contact.last_name.label' | translate }}" appearance="label">
+        <input
+          type="text"
+          pebInput
+          placeholder="{{ 'form.create_form.contact.last_name.placeholder' | translate }}"
+          formControlName="lastName"
+        />
+      </peb-form-field-input>
+    </div>
+    <div class="columns">
+      <peb-form-field-input
+        class="two-column-input"
+        label="{{ 'form.create_form.contact.phone.label' | translate }}"
+        appearance="label"
+      >
+        <input
+          type="text"
+          pebInput
+          placeholder="{{ 'form.create_form.contact.phone.placeholder' | translate }}"
+          formControlName="phone"
+        />
+      </peb-form-field-input>
+      <div class="divider"></div>
+      <peb-form-field-input
+        class="two-column-input"
+        label="{{ 'form.create_form.contact.additional_phone.label' | translate }}"
+        appearance="label"
+      >
+        <input
+          type="text"
+          pebInput
+          placeholder="{{ 'form.create_form.contact.additional_phone.placeholder' | translate }}"
+          formControlName="additionalPhone"
+        />
+      </peb-form-field-input>
+    </div>
+    <peb-form-field-input label="{{ 'form.create_form.contact.fax.label' | translate }}" appearance="label">
+      <input
+        type="text"
+        pebInput
+        placeholder="{{ 'form.create_form.contact.fax.placeholder' | translate }}"
+        formControlName="fax"
+      />
+    </peb-form-field-input>
+    <pe-picker
+      class="email-picker"
+      #picker
+      type="email"
+      [label]="'form.create_form.contact.email.label' | translate"
+      [placeholder]="'form.create_form.contact.email.placeholder' | translate"
+      [buttonLabel]="'form.create_form.contact.email.button' | translate"
+      (buttonClick)="addEmail()"
+      formControlName="emails"
+      (onKeyUp)="onKeyUpPicker($event)"
+    >
+    </pe-picker>
+  </peb-form-background>
+  <div class="form-margins__error">
+    <peb-messages
+      *ngIf="contactForm.get('salutation').invalid"
+      message="{{ 'form.create_form.contact.salutation.label' | translate }}
+                       {{ 'form.create_form.errors.is_require' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="contactForm.get('firstName').invalid"
+      message="{{ 'form.create_form.contact.first_name.label' | translate }}
+                       {{ 'form.create_form.errors.is_require' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="contactForm.get('lastName').invalid"
+      message="{{ 'form.create_form.contact.last_name.label' | translate }}
+                       {{ 'form.create_form.errors.is_require' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="contactForm.get('phone').hasError('pattern')"
+      message="{{ 'form.create_form.contact.phone.label' | translate }}
+                       {{ 'form.create_form.errors.phone_pattern' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="contactForm.get('additionalPhone').hasError('pattern')"
+      message="{{ 'form.create_form.contact.additional_phone.label' | translate }}
+                       {{ 'form.create_form.errors.phone_pattern' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="incorrectMail"
+      message="{{ 'form.create_form.contact.email.label' | translate }}
+                       {{ 'form.create_form.errors.email_pattern' | translate }}"
+    ></peb-messages>
+    <peb-messages
+      *ngIf="sameMail"
+      message="{{ 'form.create_form.errors.email_not_unique' | translate }}"
+    ></peb-messages>
+  </div>
+</form>

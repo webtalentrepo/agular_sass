@@ -1,0 +1,15 @@
+<div class="dashboard-content-wrapper">
+    <div #dashboardElement peScrollHide
+       [hideHorizontalScrollbar]="true"
+       class="dashboard-content dashboard-scroll-wrapper">
+    <div class="dashboard-content-center" [class.dashboard-content-desktop]="!(isMobile$ | async)">
+
+      <div class="demo-greeting" [ngClass]="theme">
+        <b>{{ greeting1 | loadTranslate | async }} {{ userName }}</b>, {{ greetingVariant === 4
+              ? getTranslates() : (greeting2 | loadTranslate | async)}}
+      </div>
+
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

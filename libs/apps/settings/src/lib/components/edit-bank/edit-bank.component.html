@@ -1,0 +1,101 @@
+<form [ngClass]="theme" [formGroup]="bankForm">
+  <div class="main-form">
+    <div class="form-margins">
+      <peb-form-background>
+        <peb-form-field-input
+          label="{{ 'form.create_form.bank.bankAccount.owner.label' | translate }}"
+          appearance="label"
+        >
+          <input
+            placeholder="{{ 'form.create_form.bank.bankAccount.owner.label' | translate }}"
+            formControlName="owner"
+          />
+        </peb-form-field-input>
+        <div class="columns">
+          <peb-select
+            class="two-column-input"
+            selectType="label"
+            label="{{ 'form.create_form.bank.bankAccount.country.label' | translate }}"
+            formControlName="country"
+          >
+            <peb-select-option
+              class="select-options"
+              *ngFor="let item of countries"
+              value="{{ item.value }}"
+              label="{{ item.label }}"
+            ></peb-select-option>
+          </peb-select>
+          <div class="divider"></div>
+          <peb-form-field-input
+            class="two-column-input"
+            label="{{ 'form.create_form.bank.bankAccount.city.label' | translate }}"
+            appearance="label"
+          >
+            <input
+              placeholder="{{ 'form.create_form.bank.bankAccount.city.placeholder' | translate }}"
+              formControlName="city"
+            />
+          </peb-form-field-input>
+        </div>
+        <div class="columns">
+          <peb-form-field-input
+            class="two-column-input"
+            label="{{ 'form.create_form.bank.bankAccount.bankName.label' | translate }}"
+            appearance="label"
+          >
+            <input
+              type="text"
+              placeholder="{{ 'form.create_form.bank.bankAccount.bankName.placeholder' | translate }}"
+              formControlName="bankName"
+            />
+          </peb-form-field-input>
+          <div class="divider"></div>
+          <peb-form-field-input
+            class="two-column-input"
+            label="{{ 'form.create_form.bank.bankAccount.bankCode.label' | translate }}"
+            appearance="label"
+          >
+            <input
+              type="text"
+              placeholder="{{ 'form.create_form.bank.bankAccount.bankCode.placeholder' | translate }}"
+              formControlName="bic"
+            />
+          </peb-form-field-input>
+        </div>
+        <peb-form-field-input
+          label="{{ 'form.create_form.bank.bankAccount.accountNumber.label' | translate }}"
+          appearance="label"
+        >
+          <input
+            type="text"
+            placeholder="{{ 'form.create_form.bank.bankAccount.accountNumber.placeholder' | translate }}"
+            formControlName="iban"
+          />
+        </peb-form-field-input>
+      </peb-form-background>
+
+      <div class="form-margins__error">
+        <peb-messages
+          *ngIf="bankForm.get('owner').invalid"
+          message="{{ 'form.create_form.bank.bankAccount.owner.label' | translate }}
+                                 {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+        <peb-messages
+          *ngIf="bankForm.get('country').invalid"
+          message="{{ 'form.create_form.bank.bankAccount.country.label' | translate }}
+                                 {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+        <peb-messages
+          *ngIf="bankForm.get('city').invalid"
+          message="{{ 'form.create_form.bank.bankAccount.city.label' | translate }}
+                                 {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+        <peb-messages
+          *ngIf="bankForm.get('iban').invalid"
+          message="{{ 'form.create_form.bank.bankAccount.accountNumber.label' | translate }}
+                                 {{ 'form.create_form.errors.is_require' | translate }}"
+        ></peb-messages>
+      </div>
+    </div>
+  </div>
+</form>
